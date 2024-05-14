@@ -1,0 +1,17 @@
+.product {
+  width: 20%;
+  min-width: 225px;
+  height: 400px;
+}
+
+:host {
+  width: 20%;
+  min-width: 225px;
+  margin-right: 25px;
+}
+
+.product-image {
+  width: 225px;
+  height: 125px;
+  object-fit: contain;
+}
