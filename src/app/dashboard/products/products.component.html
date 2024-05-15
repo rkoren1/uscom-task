@@ -1,12 +1,10 @@
-<!-- <mat-grid-list cols="3">
-  <mat-grid-tile *ngFor="let product of products.products"
-    ><app-product [product]="product"></app-product
-  ></mat-grid-tile>
-</mat-grid-list> -->
-
-<div class="products">
+<div class="products" *ngIf="products">
   <app-product
     *ngFor="let product of products.products"
     [product]="product"
   ></app-product>
+</div>
+
+<div class="products" *ngIf="!products">
+  <h1>undefined</h1>
 </div>
