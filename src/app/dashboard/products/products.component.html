@@ -5,6 +5,11 @@
   ></app-product>
 </div>
 
+<!-- show product skeleton if products are loading -->
 <div class="products" *ngIf="!products">
-  <h1>undefined</h1>
+  <app-product-skeleton></app-product-skeleton>
+  <app-product-skeleton></app-product-skeleton>
+  <app-product-skeleton></app-product-skeleton>
+  <app-product-skeleton></app-product-skeleton>
+  <app-product-skeleton></app-product-skeleton>
 </div>
