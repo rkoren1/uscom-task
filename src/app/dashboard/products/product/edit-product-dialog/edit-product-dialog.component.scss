@@ -1,0 +1,17 @@
+.edit-product-dialog {
+  display: flex;
+  width: 100vh;
+  height: 80vh;
+  flex-direction: column;
+}
+
+.edit-product-form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.edit-product-dialog__spinner {
+  width: 20px;
+  height: 20px;
+}

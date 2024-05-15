@@ -2,6 +2,7 @@
   width: 20%;
   min-width: 225px;
   height: 400px;
+  border: solid 1px #d3d4d9;
 }
 
 :host {
@@ -13,6 +14,7 @@
   width: 225px;
   height: 125px;
   object-fit: contain;
+  padding: 0 10px;
 }
 
 .product-description {

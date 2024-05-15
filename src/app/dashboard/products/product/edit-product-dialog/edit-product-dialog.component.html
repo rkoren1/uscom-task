@@ -1,0 +1,48 @@
+<div class="edit-product-dialog">
+  <form [formGroup]="editProductForm" class="edit-product-form">
+    <h2 mat-dialog-title>Edit product {{ data.title }}</h2>
+    <mat-dialog-content class="mat-typography">
+      <mat-label>Product Name</mat-label>
+      <mat-form-field>
+        <mat-label>Product Name</mat-label
+        ><input
+          matInput
+          name="productName"
+          formControlName="productName"
+          required
+        />
+      </mat-form-field>
+      <mat-label>Description</mat-label>
+      <mat-form-field>
+        <mat-label>Description</mat-label>
+        <textarea
+          matInput
+          cdkTextareaAutosize
+          #autosize="cdkTextareaAutosize"
+          cdkAutosizeMinRows="5"
+          cdkAutosizeMaxRows="10"
+          name="productDescription"
+          formControlName="productDescription"
+        ></textarea>
+      </mat-form-field>
+      <mat-label>Quantity</mat-label>
+      <mat-form-field>
+        <mat-label>Quantity</mat-label
+        ><input
+          matInput
+          type="number"
+          name="quantity"
+          formControlName="quantity"
+          required
+        />
+      </mat-form-field>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-button (click)="handleConfirmClick()" cdkFocusInitial>
+        <mat-spinner *ngIf="isApiLoading" [diameter]="20"></mat-spinner>
+        <span *ngIf="!isApiLoading">Confirm</span>
+      </button>
+    </mat-dialog-actions>
+  </form>
+</div>
