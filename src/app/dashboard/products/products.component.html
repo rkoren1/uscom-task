@@ -1,3 +1,4 @@
+<!-- show products only if they are loaded -->
 <div class="products" *ngIf="products">
   <app-product
     *ngFor="let product of products.products"
@@ -13,3 +14,12 @@
   <app-product-skeleton></app-product-skeleton>
   <app-product-skeleton></app-product-skeleton>
 </div>
+
+<mat-paginator
+  [length]="totalCount"
+  [pageSize]="pageSize"
+  [pageSizeOptions]="[5, 10, 25]"
+  aria-label="Select page"
+  (page)="handlePageChange($event)"
+>
+</mat-paginator>

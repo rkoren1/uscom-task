@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { delay } from 'rxjs';
+import { PageEvent } from '@angular/material/paginator';
+import { delay, tap } from 'rxjs';
 import { Products } from './products.model';
 import { ProductsService } from './products.service';
 
@@ -9,18 +10,40 @@ import { ProductsService } from './products.service';
   styleUrls: ['./products.component.scss'],
 })
 export class ProductsComponent implements OnInit {
-  products: Products;
+  products: Products | undefined;
+  pageSize = 10;
+  pageIndex = 0;
+  totalCount: number;
 
   constructor(private productsService: ProductsService) {}
 
-  ngOnInit() {
-    //added delay for demo purposes - to better highlight the product skeleton
+  handlePageChange(e: PageEvent) {
+    this.pageSize = e.pageSize;
+    this.pageIndex = e.pageIndex;
     this.productsService
-      .getProducts(10, 0)
+      .getProducts(this.pageSize, this.pageIndex * this.pageSize)
+      .pipe(
+        tap(() => {
+          //we make products undefined so the skeleton shows
+          this.products = undefined;
+        }),
+        //added delay for demo purposes - to better highlight the product skeleton
+        delay(800)
+      )
+      .subscribe((res) => {
+        this.products = res;
+        this.totalCount = res.total;
+      });
+  }
+
+  ngOnInit() {
+    this.productsService
+      .getProducts(this.pageSize, this.pageIndex * this.pageSize)
+      //added delay for demo purposes - to better highlight the product skeleton
       .pipe(delay(800))
       .subscribe((res) => {
         this.products = res;
-        console.log(res);
+        this.totalCount = res.total;
       });
   }
 }
