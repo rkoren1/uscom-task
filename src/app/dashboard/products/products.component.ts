@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { delay, tap } from 'rxjs';
 import { Products } from './products.model';
 import { ProductsService } from './products.service';
@@ -15,7 +16,10 @@ export class ProductsComponent implements OnInit {
   pageIndex = 0;
   totalCount: number;
 
-  constructor(private productsService: ProductsService) {}
+  constructor(
+    private productsService: ProductsService,
+    public snackBar: MatSnackBar
+  ) {}
 
   handlePageChange(e: PageEvent) {
     this.pageSize = e.pageSize;
@@ -41,9 +45,15 @@ export class ProductsComponent implements OnInit {
       .getProducts(this.pageSize, this.pageIndex * this.pageSize)
       //added delay for demo purposes - to better highlight the product skeleton
       .pipe(delay(800))
-      .subscribe((res) => {
-        this.products = res;
-        this.totalCount = res.total;
+      .subscribe({
+        next: (v) => {
+          this.products = v;
+          this.totalCount = v.total;
+        },
+        error: (e) =>
+          this.snackBar.open('Failed to retrieve products', undefined, {
+            duration: 10000,
+          }),
       });
   }
 }
