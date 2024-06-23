@@ -1,25 +1,30 @@
-<!-- show products only if they are loaded -->
-<div class="products" *ngIf="products">
-  <app-product
-    *ngFor="let product of products.products"
-    [product]="product"
-  ></app-product>
-</div>
+<ng-container *ngIf="getProducts$ | async as productsData; else loading">
+  <!-- show products only if they are loaded -->
+  <div class="products">
+    <app-product
+      *ngFor="let product of productsData.products"
+      [product]="product"
+    ></app-product>
+  </div>
+  <mat-paginator
+    [length]="totalCount"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="[5, 10, 25]"
+    aria-label="Select page"
+    (page)="handlePageChange($event)"
+  >
+  </mat-paginator>
+</ng-container>
 
-<!-- show product skeleton if products are loading -->
-<div class="products" *ngIf="!products">
-  <app-product-skeleton></app-product-skeleton>
-  <app-product-skeleton></app-product-skeleton>
-  <app-product-skeleton></app-product-skeleton>
-  <app-product-skeleton></app-product-skeleton>
-  <app-product-skeleton></app-product-skeleton>
-</div>
+<ng-template #loading>
+  <!-- show product skeleton if products are loading -->
+  <div class="products">
+    <app-product-skeleton></app-product-skeleton>
+    <app-product-skeleton></app-product-skeleton>
+    <app-product-skeleton></app-product-skeleton>
+    <app-product-skeleton></app-product-skeleton>
+    <app-product-skeleton></app-product-skeleton>
+  </div>
 
-<mat-paginator
-  [length]="totalCount"
-  [pageSize]="pageSize"
-  [pageSizeOptions]="[5, 10, 25]"
-  aria-label="Select page"
-  (page)="handlePageChange($event)"
+  ></ng-template
 >
-</mat-paginator>
